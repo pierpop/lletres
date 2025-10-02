@@ -10,6 +10,7 @@
         body {
             margin: 0;
             padding: 0;
+            font-size: 20px;
         }
 
         body {
@@ -27,6 +28,10 @@
             padding-right: 25px;
         }
 
+        #lletra {
+            font-size: 40vh;
+        }
+
         .hide {
             opacity: 0;
             transition: opacity 1.5s
@@ -35,10 +40,35 @@
         .hidden {
             display: none;
         }
+
+        .tempsPassat {
+            background-color: red;
+            animation-name: colorFonsPassat;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes colorFonsPassat {
+            0% {
+                background-color: #ffffff;
+            }
+
+            35% {
+                background-color: #ff0000;
+            }
+
+            65% {
+                background-color: #ff0000;
+            }
+
+            100% {
+                background-color: #ffffff;
+            }
+        }
     </style>
 </head>
 
-<body>
+<body class="">
     <div class="container">
         <span id="inici">Iniciar el joc</span>
         <span id="lletra"></span>
@@ -46,16 +76,39 @@
     <script>
         const alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
         let lletres = [];
+        let tempsTermini = 5000;
 
         function iniciJoc() {
+            console.log("Iniciant el joc");
+
             lletres = [...alfabet];
 
             document.getElementById("inici").style.display = 'none';
+
+            document.getElementById("lletra").addEventListener('click', seguentLletra);
+
+            seguentLletra();
+        }
+
+        function seguentLletra() {
+            console.log("Seguent lletra");
+
+            document.body.classList.remove("tempsPassat");
+
+            clearTimeout(this.timeoutID);
 
             const pos = getRandomInt(0, lletres.length - 1);
 
             document.getElementById("lletra").innerHTML = lletres[pos];
             lletres.splice(pos, 1);
+
+            this.timeoutID = setTimeout(tempsPassat, tempsTermini);
+        }
+
+        function tempsPassat() {
+            console.log("Temps passat");
+
+            document.body.classList.add("tempsPassat");
         }
 
         function getRandomInt(min, max) {
