@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lletres</title>
+    <title>Lletres a l'atzar</title>
     <style>
         html,
         body {
@@ -22,6 +22,7 @@
         }
 
         .container {
+            text-align: center;
             margin-left: auto;
             margin-right: auto;
             padding-left: 25px;
@@ -30,6 +31,21 @@
 
         #lletra {
             font-size: 40vh;
+        }
+
+        #inici {
+            cursor: pointer;
+            padding: 10px;
+            background-color: lightgreen;
+        }
+
+        #inici:hover {
+            background-color: green;
+            color: white;
+        }
+
+        #temps {
+            font-size: 1rem;
         }
 
         .hide {
@@ -70,20 +86,34 @@
 
 <body class="">
     <div class="container">
-        <span id="inici">Iniciar el joc</span>
+        <div id="bloc_inici">
+            <h1 id="inici">Iniciar el joc</h1>
+            <hr>
+            <div class="camp">
+                <label for="nom">Temps per lletra (segons):</label>
+                <input type="number" id="temps" value="5" min="1" />
+            </div>
+        </div>
+
         <span id="lletra"></span>
+        <h1 id="fi" class="hidden">FI DEL JOC!</h1>
     </div>
     <script>
         const alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
         let lletres = [];
-        let tempsTermini = 5000;
+        //let tempsTermini = 5000;
+        let tempsTermini;
+
+        let timeoutID;
 
         function iniciJoc() {
             console.log("Iniciant el joc");
 
+            tempsTermini = document.getElementById("temps").value * 1000;
+
             lletres = [...alfabet];
 
-            document.getElementById("inici").style.display = 'none';
+            document.getElementById("bloc_inici").classList.add("hidden");
 
             document.getElementById("lletra").addEventListener('click', seguentLletra);
 
@@ -95,14 +125,26 @@
 
             document.body.classList.remove("tempsPassat");
 
-            clearTimeout(this.timeoutID);
+            clearTimeout(timeoutID);
 
             const pos = getRandomInt(0, lletres.length - 1);
 
             document.getElementById("lletra").innerHTML = lletres[pos];
+            lletres_restants = lletres.length;
             lletres.splice(pos, 1);
 
-            this.timeoutID = setTimeout(tempsPassat, tempsTermini);
+            if (lletres_restants === 0) {
+                console.log("Fi del joc");
+
+                document.getElementById("lletra").classList.add("hidden");
+                document.getElementById("lletra").removeEventListener('click', seguentLletra);
+
+                document.getElementById("fi").classList.remove("hidden");
+
+                return;
+            }
+            else
+                timeoutID = setTimeout(tempsPassat, tempsTermini);
         }
 
         function tempsPassat() {
