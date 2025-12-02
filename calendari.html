@@ -80,7 +80,7 @@
         #obert {
 /*             background-color: lightgreen;*/
             z-index: 1;
-            font-size: 8vh;
+            font-size: 7vh;
         }
 
         .desapareix {
@@ -121,7 +121,7 @@
     <script>
         const dia = document.querySelector('#inici span');
 
-        fetch("text.txt")
+        fetch("text.txt?id=" + Date.now())
             .then(response => response.text())
             .then(data => {
                 const obert = document.getElementById('obert');
