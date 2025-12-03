@@ -27,12 +27,14 @@
 
         .container {
             text-align: center;
+            margin-top: 1em;
         }
 
         #bloc_inici {
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 65vh;
         }
 
         .casella {
@@ -40,7 +42,7 @@
             height: 45vh;
             width: 45vh;
 
-            margin-top: 2em;
+            margin-top: 1em;
         }
 
         #inici,
@@ -72,13 +74,13 @@
             font-size: 30vh;
         }
 
-        #inici:hover {
+        /* #inici:hover {
             background-color: lightsalmon;
             color: white;
-        }
+        } */
 
         #obert {
-/*             background-color: lightgreen;*/
+            /*             background-color: lightgreen;*/
             z-index: 1;
             font-size: 7vh;
         }
@@ -87,6 +89,69 @@
             animation-name: desapareix;
             animation-duration: 1s;
             animation-fill-mode: forwards;
+        }
+
+        hr {
+            margin: 1em 0;
+        }
+
+        .graella {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+
+            margin: 1em;
+        }
+
+        .graella_dia {
+            padding: 5px;
+            border: 3px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .graella__casella {
+            position: relative;
+            /* height: 45vh;
+            width: 45vh; */
+
+            /* margin-top: 2em; */
+
+            border: 2px solid black;
+        }
+
+        .graella__casella::before {
+            content: '';
+            display: block;
+            padding-top: 100%;
+        }
+
+        .graella__dia,
+        .graella__obert {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            height: 100%;
+            width: 100%;
+
+            padding: 5px;
+            /* border: 2px solid black; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* background-color: lightblue; */
+        }
+
+        .graella__dia {
+            background-color: white;
+            cursor: pointer;
+            z-index: 2;
+
+            font-size: 2em;
+            font-weight: bold;
         }
 
         @keyframes desapareix {
@@ -117,18 +182,73 @@
                 <span id="obert">T'estimo!</span>
             </div>
         </div>
+        <hr>
+        <h2>Dies anteriors</h2>
+        <div class="bloc_passats">
+            <div class="graella">
+                <!-- <div class="graella__casella">
+                    <div class="graella__dia">
+                        <span>2</span>
+                    </div>
+                    <span class="graella__obert">aaa</span>
+                </div>
+                <div class="graella__casella">
+                    <div class="graella__dia">
+                        <span>3</span>
+                    </div>
+                    <span class="graella__obert">bbb</span>
+                </div>
+                <div class="graella__casella">
+                    <div class="graella__dia">
+                        <span>4</span>
+                    </div>
+                    <span class="graella__obert">ccc</span>
+                </div>          -->       
+            </div>
+        </div>
     </div>
     <script>
         const dia = document.querySelector('#inici span');
 
-        fetch("text.txt?id=" + Date.now())
+        /* fetch("text.txt?id=" + Date.now())
             .then(response => response.text())
             .then(data => {
                 const obert = document.getElementById('obert');
                 obert.innerHTML = data;
-            });
+            }); */
 
-        if (new Date().getDate() <= 24) {
+        const textos = {
+            1: "No hi havia res",
+            2: "T'estimo",
+            3: "Sallent <br> 2004",
+            4: "Bernat <br> 2016",
+            5: "Formentera <br> 2012",
+            6: "Mar i cel",
+            7: "Pis Pare Manyanet",
+            8: "T'estimo molt",
+            9: "Un massatge",
+            10: "Fontpedrosa <br> 2006",
+            11: "El Montanyà",
+            12: "Una foto pixant",
+            13: "Casament <br> 2012",
+            14: "Pis Enric Granados <br> 2008",
+            15: "L'olor de Nescafé",
+            16: "Pis Turó del Mulei <br> 2020",
+            17: "Banhs de Tredòs <br> 2013",
+            18: "Pis Terraplé <br> 2009",
+            19: "",
+            20: "Eivissa <br> 2008",
+            21: "Pis Raseta <br> 2012",
+            22: "",
+            23: "",
+            24: ""
+        };
+
+        const obert = document.getElementById('obert');
+        const num_dia = new Date().getDate();
+        obert.innerHTML = textos[num_dia];
+
+        if (num_dia <= 24) {
             dia.innerHTML = new Date().getDate();
 
             const inici = document.getElementById('inici');
@@ -136,14 +256,30 @@
             inici.addEventListener('click', () => {
                 inici.classList.add('desapareix');
             });
+
+            const graella = document.querySelector(".graella");
+
+            for (let i = 1; i < num_dia; i++) {
+            /* for (let i = 1; i < 24; i++) { */
+                graella.insertAdjacentHTML('beforeend', 
+                    '<div class="graella__casella"><div class="graella__dia"><span>' + i +'</span></div><span class="graella__obert">' + textos[i] + '</span></div>');                
+            }
+
+            const dies = document.querySelectorAll(".graella__dia");
+            
+            dies.forEach(element => {
+                element.addEventListener('click',() => {
+                    element.classList.add('desapareix');
+                });
+            });
+
         }
-        else
-        {
+        else {
             const inici = document.getElementById('inici');
             inici.style.display = 'none';
             const obert = document.getElementById('obert');
             obert.innerHTML = "Bon Nadal!";
-        }
+        }                        
     </script>
 </body>
 
