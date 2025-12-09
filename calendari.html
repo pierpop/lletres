@@ -203,7 +203,7 @@
                         <span>4</span>
                     </div>
                     <span class="graella__obert">ccc</span>
-                </div>          -->       
+                </div>          -->
             </div>
         </div>
     </div>
@@ -236,10 +236,10 @@
             16: "Pis Turó del Mulei <br> 2020",
             17: "Banhs de Tredòs <br> 2013",
             18: "Pis Terraplé <br> 2009",
-            19: "",
+            19: "Les teves pigues <br> La meva piga",
             20: "Eivissa <br> 2008",
             21: "Pis Raseta <br> 2012",
-            22: "",
+            22: "El jacuzzi d'El Jou",
             23: "",
             24: ""
         };
@@ -261,12 +261,12 @@
 
             for (let i = 1; i < num_dia; i++) {
             /* for (let i = 1; i < 24; i++) { */
-                graella.insertAdjacentHTML('beforeend', 
-                    '<div class="graella__casella"><div class="graella__dia"><span>' + i +'</span></div><span class="graella__obert">' + textos[i] + '</span></div>');                
+                graella.insertAdjacentHTML('beforeend',
+                    '<div class="graella__casella"><div class="graella__dia"><span>' + i +'</span></div><span class="graella__obert">' + textos[i] + '</span></div>');
             }
 
             const dies = document.querySelectorAll(".graella__dia");
-            
+
             dies.forEach(element => {
                 element.addEventListener('click',() => {
                     element.classList.add('desapareix');
@@ -279,7 +279,7 @@
             inici.style.display = 'none';
             const obert = document.getElementById('obert');
             obert.innerHTML = "Bon Nadal!";
-        }                        
+        }
     </script>
 </body>
 
