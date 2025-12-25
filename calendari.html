@@ -60,6 +60,8 @@
             align-items: center;
             justify-content: center;
 
+            flex-direction: column;
+
             /* background-color: lightblue; */
         }
 
@@ -218,7 +220,7 @@
             }); */
 
         const textos = {
-            1: "No hi havia res",
+            1: "<i>No hi havia res</i>",
             2: "T'estimo",
             3: "Sallent <br> 2004",
             4: "Bernat <br> 2016",
@@ -245,10 +247,11 @@
         };
 
         const obert = document.getElementById('obert');
-        const num_dia = new Date().getDate();
-        obert.innerHTML = textos[num_dia];
+        const num_dia = new Date().getDate();        
 
         if (num_dia <= 24) {
+            obert.innerHTML = textos[num_dia];
+
             dia.innerHTML = new Date().getDate();
 
             const inici = document.getElementById('inici');
@@ -272,13 +275,37 @@
                     element.classList.add('desapareix');
                 });
             });
-
         }
         else {
-            const inici = document.getElementById('inici');
+            /* const inici = document.getElementById('inici');
             inici.style.display = 'none';
             const obert = document.getElementById('obert');
-            obert.innerHTML = "Bon Nadal!";
+            obert.innerHTML = "Bon Nadal!"; */
+
+            obert.innerHTML = "<h1>24</h1>" + textos[24];
+            dia.innerHTML = 24;
+
+            const inici = document.getElementById('inici');
+            inici.remove();
+
+            /* inici.addEventListener('click', () => {
+                 inici.classList.add('desapareix');
+            }); */
+
+            const graella = document.querySelector(".graella");
+
+            for (let i = 1; i < num_dia - 1; i++) {            
+                graella.insertAdjacentHTML('beforeend',
+                    '<div class="graella__casella"><div class="graella__dia"><span>' + i +'</span></div><span class="graella__obert">' + textos[i] + '</span></div>');
+            }
+
+            const dies = document.querySelectorAll(".graella__dia");
+
+            dies.forEach(element => {
+                element.addEventListener('click',() => {
+                    element.classList.add('desapareix');
+                });
+            });
         }
     </script>
 </body>
