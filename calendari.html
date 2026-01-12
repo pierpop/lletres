@@ -247,9 +247,9 @@
         };
 
         const obert = document.getElementById('obert');
-        const num_dia = new Date().getDate();        
+        let num_dia = new Date().getDate();
 
-        if (num_dia <= 24) {
+/*         if (num_dia <= 24) {
             obert.innerHTML = textos[num_dia];
 
             dia.innerHTML = new Date().getDate();
@@ -263,7 +263,7 @@
             const graella = document.querySelector(".graella");
 
             for (let i = 1; i < num_dia; i++) {
-            /* for (let i = 1; i < 24; i++) { */
+            // for (let i = 1; i < 24; i++) {
                 graella.insertAdjacentHTML('beforeend',
                     '<div class="graella__casella"><div class="graella__dia"><span>' + i +'</span></div><span class="graella__obert">' + textos[i] + '</span></div>');
             }
@@ -276,7 +276,7 @@
                 });
             });
         }
-        else {
+        else { */
             /* const inici = document.getElementById('inici');
             inici.style.display = 'none';
             const obert = document.getElementById('obert');
@@ -284,6 +284,7 @@
 
             obert.innerHTML = "<h1>24</h1>" + textos[24];
             dia.innerHTML = 24;
+            num_dia = 25;
 
             const inici = document.getElementById('inici');
             inici.remove();
@@ -294,7 +295,7 @@
 
             const graella = document.querySelector(".graella");
 
-            for (let i = 1; i < num_dia - 1; i++) {            
+            for (let i = 1; i < num_dia - 1; i++) {
                 graella.insertAdjacentHTML('beforeend',
                     '<div class="graella__casella"><div class="graella__dia"><span>' + i +'</span></div><span class="graella__obert">' + textos[i] + '</span></div>');
             }
@@ -306,7 +307,7 @@
                     element.classList.add('desapareix');
                 });
             });
-        }
+        //}
     </script>
 </body>
 
